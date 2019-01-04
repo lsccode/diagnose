@@ -22,21 +22,26 @@
 class CDiaglog
 {
 private:
-    CDiaglog(void);
-    static CDiaglog *pSelf;
+    CDiaglog(void);   
     int m_fd;
     socklen_t serverLen;
     struct sockaddr_in serverAddr;
-    
+
+private:
+    static CDiaglog *pSelf;
+
 public:
     static CDiaglog* getInstance(void);
+    
+public:
     void message(char *buf,int length);
     void destory(void);
 };
 
 
+#if 0
 #define MESSAGE(format,...) \
-    do{ \
+do{ \
     char buf[1024] = {0};\
     CDiaglog *pLog = CDiaglog::getInstance();\
     int i = snprintf(buf,sizeof(buf), "%s %s %d "format,__FILE__,__func__,__LINE__,##__VA_ARGS__);\
@@ -58,5 +63,11 @@ do{ \
     int i = snprintf(buf,sizeof(buf),"leave %s_%s %d " format,__FILE__,__func__,__LINE__,##__VA_ARGS__);\
     pLog->message(buf,i);\
 }while(0)
+
+#else
+#define MESSAGE(format,...)
+#define MESSAGE_ENTER(format,...)
+#define MESSAGE_LEAVE(format,...)
+#endif
 
 #endif

@@ -1,5 +1,5 @@
 TARGET_DIR := $(PWD)/output
-COMPILE_DIR := client server
+COMPILE_DIR := client server 
 
 .PHONY:$(COMPILE_DIR)
 all:$(COMPILE_DIR)

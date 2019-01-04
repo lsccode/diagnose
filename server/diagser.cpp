@@ -30,6 +30,10 @@ typedef struct tagMessageStatic
     unsigned long long enter;
     unsigned long long leave;
     unsigned long status;
+    unsigned long long last;
+    unsigned long long recent;
+    unsigned long long diff;
+    char szRecentAccessTime[32];  
 }tMessageStatic;
 
 #define STATUS_OK (0)
@@ -37,6 +41,21 @@ typedef struct tagMessageStatic
 
 typedef std::map<std::string,std::string> tMapKey;
 typedef std::map<std::string,tMessageStatic*> tMapStatic;
+
+void getLocalTimeStr(char *str)
+{
+    struct timeval    tv; 
+//    struct timezone tz;
+    struct tm         *lt;
+    gettimeofday(&tv, NULL); 
+    
+    lt = localtime(&tv.tv_sec);
+    int ret = sprintf(str,"%04d%02d%02d-%02d%02d%02d.%ld",
+                      lt->tm_year+1900,lt->tm_mon+1,lt->tm_mday,
+                      lt->tm_hour,lt->tm_min,lt->tm_sec,tv.tv_usec);
+    str[ret] = 0;
+    return;
+}
 
 int createUdpServer()
 {
@@ -83,6 +102,7 @@ int main(int argc, char *argv[])
         char szBuf[1024] = {0};
         char ver[16] = {0};
         char key[128] = {0};
+        tMessageStatic stStatic = {0};  
         
         struct sockaddr_in clientAddr;
         socklen_t clientLen = sizeof(clientAddr);
@@ -92,7 +112,10 @@ int main(int argc, char *argv[])
             debug("recv error,!");
             continue;
         }
-        
+#if 1
+        getLocalTimeStr(stStatic.szRecentAccessTime);
+        fprintf(stderr,"%s \n",szBuf);
+#else       
         sscanf(szBuf,"%s %s",ver,key);
         std::string mapkey = key;
         
@@ -111,7 +134,7 @@ int main(int argc, char *argv[])
             mapKey.insert(std::make_pair(strkey, mapkey)); 
         }
 
-        tMessageStatic stStatic = {0};  
+        
         tMapStatic::iterator iter = mapStatics.find(mapkey);
         
         if(!strcmp(ver,"enter"))
@@ -127,29 +150,23 @@ int main(int argc, char *argv[])
             debug("unknow ver(%s)\n",ver);
         }
         stStatic.status = STATUS_FA;
-        
-        
+        stStatic.last   = 0;
+        stStatic.recent = time(NULL);
+        stStatic.diff   = stStatic.recent - stStatic.last;
+        getLocalTimeStr(stStatic.szRecentAccessTime);
         
         if(iter != mapStatics.end())
         {
             tMessageStatic *pstStatic = iter->second;
-            if(stStatic.enter)
-            {               
-                ++pstStatic->enter;
-            }
-            else if(stStatic.leave)
-            {
-                ++pstStatic->leave;
-            }
-            else
-            {
-                debug("unknow ver(%s)\n",ver);
-            }
-            
+            pstStatic->enter  += stStatic.enter;
+            pstStatic->leave  += stStatic.leave;
+            pstStatic->last   = pstStatic->recent;
+            pstStatic->recent = stStatic.recent;
+            pstStatic->diff   = pstStatic->recent - pstStatic->last;
+            getLocalTimeStr(pstStatic->szRecentAccessTime);
             pstStatic->status = stStatic.status;
             if(pstStatic->enter == pstStatic->leave)
-                pstStatic->status = STATUS_OK;
-            
+                pstStatic->status = STATUS_OK;           
         }
         else
         {
@@ -158,13 +175,18 @@ int main(int argc, char *argv[])
             
             tMessageStatic *pstStatic = (tMessageStatic *)calloc(1,sizeof(tMessageStatic));
             
-            pstStatic->enter = stStatic.enter;
-            pstStatic->leave = stStatic.leave;
+            pstStatic->enter  = stStatic.enter;
+            pstStatic->leave  = stStatic.leave;            
+            pstStatic->last   = pstStatic->recent;
+            pstStatic->recent = stStatic.recent;
+            pstStatic->diff   = pstStatic->recent - pstStatic->last;
+            getLocalTimeStr(pstStatic->szRecentAccessTime);
             pstStatic->status = stStatic.status;
-            //strcpy(mapkey,key);
             
             mapStatics.insert(std::make_pair(mapkey, pstStatic));            
         }
+        
+        
         
         for (tMapStatic::iterator iter = mapStatics.begin(); 
                 iter != mapStatics.end(); ++iter) 
@@ -177,8 +199,19 @@ int main(int argc, char *argv[])
                 strstatus = "YES";
            
             if(pstStatic->status != STATUS_OK)
-                debug("%s enter(%llu) leave(%llu) status (%s)\n",mapkey.c_str(),pstStatic->enter,pstStatic->leave,strstatus);
+                fprintf(stderr,
+                        "%s enter(%llu) leave(%llu) last(%u) recent(%u) diff(%u) time(%s) status (%s)\n",
+                        mapkey.c_str(),
+                        pstStatic->enter,
+                        pstStatic->leave,                        
+                        pstStatic->last,
+                        pstStatic->recent,
+                        pstStatic->diff,
+                        pstStatic->szRecentAccessTime,
+                        strstatus
+                       );
         }
+#endif
           
     }
     close(slSocket);

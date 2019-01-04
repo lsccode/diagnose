@@ -3,10 +3,10 @@ CXX      := $(CROSS)g++
 CC       := $(CROSS)gcc
 CPPFLAGS += -I ../include
 
-ALL := ser
+ALL := ser.out
 all:$(ALL)
 
-ser:diagser.o
+ser.out:diagser.o
 	$(CXX) -o $@ $^
 
 install:

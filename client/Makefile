@@ -1,15 +1,15 @@
-CROSS    := arm-linux-gnueabihf-
+#CROSS    := arm-linux-gnueabihf-
 CXX      := $(CROSS)g++
 CC       := $(CROSS)gcc
 CPPFLAGS += -I ../include
 
-ALL := diaglog libdiag.a
+ALL := diaglog.out libdiag.a
 all:$(ALL)
 
-diaglog:diaglog.o main.o
+diaglog.out:diaglog.o main.o libdiag.a
 	$(CXX) -o $@ $^
 
-libdiag.a:diaglog.o
+libdiag.a:diaglog.o cbaselog.o csyslog.o cnetlog.o cstderrlog.o cfilelog.o cdiagnose.o
 	ar rf $@ $^
 
 install:
