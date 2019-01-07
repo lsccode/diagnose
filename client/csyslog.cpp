@@ -61,7 +61,7 @@ NVP_S32 CSysLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     if(ulogLevel >= LL_MAX)
     {
-        syslog(LOG_ERR,"ulogLevel(%u) > LL_MAX(%u) \n",ulogLevel,LL_MAX);
+        syslog(LOG_ERR,"ulogLevel(%u) > LL_MAX(%d) \n",ulogLevel,LL_MAX);
         return NVP_FAILURE;
     }
     

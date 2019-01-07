@@ -91,7 +91,7 @@ NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     if(ulogLevel >= LL_MAX)
     {
-        fprintf(stderr,"ulogLevel(%u) > LL_MAX(%u) \n",ulogLevel,LL_MAX);
+        fprintf(stderr,"ulogLevel(%u) > LL_MAX(%d) \n",ulogLevel,LL_MAX);
         return NVP_FAILURE;
     }
     

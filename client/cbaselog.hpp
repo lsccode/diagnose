@@ -36,7 +36,7 @@ protected:
     NVP_S32 format(NVP_CHAR *pszMsg,NVP_U32 ulMsgLenght,const NVP_CHAR* pszFormat, ...);
     
     //format string level 
-    const NVP_CHAR *ppszLevStr[LL_MAX];
+    const NVP_CHAR *ppszLevStr[LL_MAX + 1];
 };
 
 #endif
