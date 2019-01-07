@@ -22,7 +22,7 @@ NVP_U8  ucStart = 0;            //  start flag,this flag must 1,or else no print
 **************************************************************************/
 void initLog()
 {
-    if(NULL == pdiagnose)
+    if (NULL == pdiagnose)
         pdiagnose = CDiagnose::getInstance();
     
     return;
@@ -39,7 +39,7 @@ void initLog()
 **************************************************************************/
 void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
-    if(NULL == pdiagnose)
+    if (NULL == pdiagnose)
     {
         fprintf(stderr,"call initLog first,please!\n");
         return;
@@ -64,7 +64,7 @@ void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 
 void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
 {
-    if(NULL == pdiagnose || 0 == ucStart )
+    if (NULL == pdiagnose || 0 == ucStart )
     {
         fprintf(stderr,"call initLog and setTerminal first,please!\n");
         return;

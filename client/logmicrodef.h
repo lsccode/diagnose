@@ -7,8 +7,8 @@ Description : micro def
 
 **************************************************************************/
 
-#ifndef __LOG_MICRO_DEF__H__
-#define __LOG_MICRO_DEF__H__
+#ifndef CLIENT_LOGMICRODEF_H_
+#define CLIENT_LOGMICRODEF_H_
 
 #include "nvp_types.h"
 
@@ -31,4 +31,4 @@ Description : micro def
 #define M_MAX_MSG_LENGTH (128)
 
 
-#endif
+#endif    //  CLIENT_LOGMICRODEF_H_

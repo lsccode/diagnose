@@ -39,4 +39,4 @@ protected:
     const NVP_CHAR *ppszLevStr[LL_MAX + 1];
 };
 
-#endif
+#endif 

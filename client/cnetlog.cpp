@@ -38,7 +38,7 @@ CNetLog::CNetLog()
 
 CNetLog::~CNetLog()
 {
-    if(m_fd > 0)
+    if (m_fd > 0)
         ::close(m_fd);
     m_fd = -1;
 }
@@ -55,13 +55,13 @@ NVP_S32 CNetLog::getCfgIP()
 {
     FILE *fp = fopen(M_CFG_FILE,"a+");
     
-    if(NULL == fp)
+    if (NULL == fp)
     {
         return NVP_FAILURE;
     }
     memset(m_szIP,0,sizeof(m_szIP));
     
-    if(fgets(m_szIP,sizeof(m_szIP),fp) == NULL)
+    if (fgets(m_szIP,sizeof(m_szIP),fp) == NULL)
     {
         fclose(fp);
         return NVP_FAILURE;
@@ -85,15 +85,15 @@ NVP_S32 CNetLog::init()
 { 
     m_fd = socket (AF_INET,SOCK_DGRAM,0);
     
-    if(m_fd < 0)
+    if (m_fd < 0)
     {
         fprintf(stderr,"socket error!\n");
         return NVP_FAILURE;
     }
     
-    if(getCfgIP() != NVP_SUCCEED)
+    if (getCfgIP() != NVP_SUCCEED)
     {
-        //  udp socket,if no ip config,then wait user config netlog.cfg, therefore keep socket fd
+        //  udp socket,if  no ip config,then wait user config netlog.cfg, therefore keep socket fd
         fprintf(stderr,"get config ip error!\n");
         return NVP_FAILURE;
     }
@@ -120,7 +120,7 @@ NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     NVP_S32 slRet;
     NVP_CHAR szBuf[M_MAX_MSG_LENGTH] = {0};
     
-    if(ulogLevel >= LL_MAX)
+    if (ulogLevel >= LL_MAX)
     {
         fprintf(stderr,"ulogLevel(%u) > LL_MAX(%d) \n",ulogLevel,LL_MAX);
         return NVP_FAILURE;
@@ -129,11 +129,11 @@ NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     slRet = snprintf(szBuf,sizeof(szBuf),"[ %-10s ] ",ppszLevStr[ulogLevel]);	
     slRet += vsnprintf(szBuf + slRet, sizeof(szBuf) - slRet,format,args);  
     
-    if(slRet > 0 && m_fd > 0)
+    if (slRet > 0 && m_fd > 0)
     {
-        if(sendto(m_fd,szBuf,slRet,0,(struct sockaddr *)&m_serverAddr,m_serverLen) < 0)
+        if (sendto(m_fd,szBuf,slRet,0,(struct sockaddr *)&m_serverAddr,m_serverLen) < 0)
         {
-            if(getCfgIP() != NVP_SUCCEED)
+            if (getCfgIP() != NVP_SUCCEED)
             {
                 fprintf(stderr,"get config ip error!\n");
                 return NVP_FAILURE;
@@ -158,7 +158,7 @@ NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 
 NVP_S32 CNetLog::close()
 {
-    if(m_fd > 0)
+    if (m_fd > 0)
         ::close(m_fd);
     m_fd = -1;
     

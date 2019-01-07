@@ -7,15 +7,15 @@ Description : c stype encap
 
 **************************************************************************/
 
-#ifndef __LOG_API_H__
-#define __LOG_API_H__
+#ifndef CLIENT_LOGCAPI_H_
+#define CLIENT_LOGCAPI_H_
 
 #include "logmicrodef.h"
 #include <stdio.h>
 
 #ifdef __cplusplus 
 extern "C" { 
-#endif
+#endif 
 
 //  init log
 void initLog();
@@ -33,11 +33,11 @@ void closeLog();
 #define NVPLOG(loglevel,format,...) \
 do{ \
     logPrint(loglevel,"/%s/%s/%d -- "format, __FILE__,__func__,__LINE__, ##__VA_ARGS__); \
-} while(0)
+} while (0)
 
 
 #ifdef __cplusplus 
 } 
-#endif 
+#endif  
 
-#endif
+#endif   //  CLIENT_LOGCAPI_H_

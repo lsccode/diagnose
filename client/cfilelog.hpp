@@ -29,4 +29,4 @@ private:
     NVP_CHAR m_szFileName[M_MAX_FILE_NAME_LENGTH];
 };
 
-#endif
+#endif 

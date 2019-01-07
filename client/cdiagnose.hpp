@@ -39,4 +39,4 @@ private:
     static CDiagnose *pcSelf;
 };
 
-#endif
+#endif 

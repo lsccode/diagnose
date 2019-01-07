@@ -29,7 +29,7 @@ CDiagnose::CDiagnose()
 **************************************************************************/
 CDiagnose* CDiagnose::getInstance(NVP_VOID)
 {
-    if(NULL == pcSelf)
+    if (NULL == pcSelf)
         pcSelf = new CDiagnose();
     
     return pcSelf;
@@ -49,16 +49,16 @@ NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
     NVP_S32 slRet = NVP_SUCCEED;
     
-    if(NULL != this->pcBaseLog)
+    if (NULL != this->pcBaseLog)
         delete this->pcBaseLog;
     
     this->pcBaseLog = NULL;
     
-    switch(ulTermType)
+    switch (ulTermType)
     {
         case M_TERM_FILE:
         {
-            if(szFile == NULL)
+            if (szFile == NULL)
             {
                 slRet = NVP_FAILURE;
                 fprintf(stderr,"file name must have a file name\n");
@@ -91,7 +91,7 @@ NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
         }break;
     }
     
-    if(this->pcBaseLog)
+    if (this->pcBaseLog)
     {
         this->pcBaseLog->init();
     }
@@ -118,7 +118,7 @@ NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 
 NVP_VOID CDiagnose::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {
-    if( NULL == this->pcBaseLog )
+    if ( NULL == this->pcBaseLog )
     {
         return;
     }
