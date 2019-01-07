@@ -5,11 +5,6 @@
 #include <stdarg.h>
 #include "cbaselog.hpp"
 
-#define M_TERM_FILE (0)
-#define M_TERM_NET  (1)
-#define M_TERM_SYS  (2)
-#define M_TERM_STD  (3)
-
 class CDiagnose
 {
 private:
@@ -19,8 +14,8 @@ public:
     static CDiagnose* getInstance(NVP_VOID);
     
 public:
-    NVP_S32 setTerminal(NVP_U32 ulTermType,NVP_CHAR *szFile = NULL);
-    NVP_VOID log(NVP_U32 ulogLevel,const NVP_CHAR *format, ...); 
+    NVP_S32 setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile = NULL);
+    NVP_VOID log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args); 
     
 private:
     CBaseLog *pcBaseLog;

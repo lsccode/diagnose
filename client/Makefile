@@ -9,7 +9,7 @@ all:$(ALL)
 diaglog.out:diaglog.o main.o libdiag.a
 	$(CXX) -o $@ $^
 
-libdiag.a:diaglog.o cbaselog.o csyslog.o cnetlog.o cstderrlog.o cfilelog.o cdiagnose.o
+libdiag.a:diaglog.o cbaselog.o csyslog.o cnetlog.o cstderrlog.o cfilelog.o cdiagnose.o logcapi.o
 	ar rf $@ $^
 
 install:

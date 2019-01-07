@@ -4,17 +4,8 @@
 #include <stdarg.h>
 
 #include "nvp_types.h"
-
+#include "logmicrodef.h"
 //  LL means log level
-
-#define LL_ERR    (0)              
-#define LL_WARN   (1)          
-#define LL_NOTICE (2)           
-#define LL_INFO  (3)             
-#define LL_DEBUG   (4)            
-
-#define LL_MAX (5)
-#define M_MAX_MSG_LENGTH (128)
 
 #define M_VSTR_FORMAT(buf,length,format,level,ret) \
 do{ \

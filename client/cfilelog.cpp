@@ -9,13 +9,13 @@
 #include <unistd.h>
 #include <errno.h>
 
-CFileLog::CFileLog(NVP_CHAR *szFileName)
+CFileLog::CFileLog(const NVP_CHAR *szFileName)
 {
     m_filefd = -1;
     memset(m_szFileName,0,sizeof(m_szFileName));
     
     if(szFileName)
-        strncpy(m_szFileName,szFileName,sizeof(szFileName));
+        strncpy(m_szFileName,szFileName,sizeof(m_szFileName) - 1);
 }
 
 CFileLog::~CFileLog()

@@ -23,7 +23,7 @@ CDiagnose* CDiagnose::getInstance(NVP_VOID)
 
 //  Logging functions do not need to consider multithreading during initialization,
 //  Therefore, the mutex is omitted, please note
-NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,NVP_CHAR *szFile)
+NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
     NVP_S32 slRet = NVP_SUCCEED;
     
@@ -83,17 +83,14 @@ NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,NVP_CHAR *szFile)
 
 }
 
-NVP_VOID CDiagnose::log(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
+NVP_VOID CDiagnose::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {
     if( NULL == this->pcBaseLog )
     {
         return;
     }
     
-    va_list args;
-    va_start(args, format);
     this->pcBaseLog->log(ulogLevel,format,args);
-    va_end(args);
     
     return;
 }

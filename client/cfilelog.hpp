@@ -7,7 +7,7 @@
 class CFileLog:public CBaseLog
 {
 public:
-    CFileLog(NVP_CHAR *szFileName);
+    CFileLog(const NVP_CHAR *szFileName);
     ~CFileLog();
     virtual NVP_S32 init();
     virtual NVP_S32 log(NVP_U32 ulogLevel,const NVP_CHAR *format,va_list args);
