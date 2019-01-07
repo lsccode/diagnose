@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : sys log terminal
+
+**************************************************************************/
+
 #include <stdio.h>
 #include <errno.h>
 #include <stdarg.h>
@@ -18,6 +27,14 @@ CSysLog::~CSysLog()
     closelog();
 }
 
+/**************************************************************************
+@brief     : call syslog
+@function  : init
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
+
 NVP_S32 CSysLog:: init()
 {
 
@@ -25,6 +42,17 @@ NVP_S32 CSysLog:: init()
     
     return NVP_SUCCEED;
 }
+
+/**************************************************************************
+@brief     : log to sys log
+@function  : log
+@param     :
+	ulogLevel         log leve type,  such as LL_ERR,LL_WARN ...
+	format            c stype format ,like "%s %d"
+    args              c vary type
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 
 NVP_S32 CSysLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {
@@ -46,6 +74,13 @@ NVP_S32 CSysLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     return slRet;
 }
 
+/**************************************************************************
+@brief     : close sys log
+@function  : log
+@param     :
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 NVP_S32 CSysLog::close()
 {   
     closelog();

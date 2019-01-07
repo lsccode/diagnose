@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : log encap class
+
+**************************************************************************/
+
 #include "cdiagnose.hpp"
 #include "cfilelog.hpp"
 #include "cnetlog.hpp"
@@ -11,8 +20,13 @@ CDiagnose::CDiagnose()
     pcBaseLog = NULL;
 }
 
-//  Logging functions do not need to consider multithreading during initialization,
-//  Therefore, the mutex is omitted, please note
+/**************************************************************************
+@brief     : Singleton pattern initialization function
+@param     :
+@note    ? : Logging functions do not need to consider multithreading during initialization
+             Therefore, the mutex is omitted, please note
+@author    :   sicheng.lin  
+**************************************************************************/
 CDiagnose* CDiagnose::getInstance(NVP_VOID)
 {
     if(NULL == pcSelf)
@@ -21,8 +35,16 @@ CDiagnose* CDiagnose::getInstance(NVP_VOID)
     return pcSelf;
 }
 
-//  Logging functions do not need to consider multithreading during initialization,
-//  Therefore, the mutex is omitted, please note
+/**************************************************************************
+@brief     : set log terminal
+@function  : setTerminal
+@param     :
+	ulTermType         set terminal type,like M_TERM_FILE ,M_TERM_NET  ...
+	szFile             if terminal is file,szFile must set or else is NULL
+@note      : Logging functions do not need to consider multithreading during initialization
+             Therefore, the mutex is omitted, please note
+@author    :  sicheng.lin 
+**************************************************************************/
 NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
     NVP_S32 slRet = NVP_SUCCEED;
@@ -82,6 +104,17 @@ NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
     return slRet;
 
 }
+
+/**************************************************************************
+@brief     : log to base log,set by CDiagnose::setTerminal
+@function  : log
+@param     :
+	ulogLevel         log leve type,  such as LL_ERR,LL_WARN ...
+	format            c stype format ,like "%s %d"
+    args              c vary type
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 
 NVP_VOID CDiagnose::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {

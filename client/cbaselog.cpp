@@ -1,9 +1,20 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : log terminal template class
+
+**************************************************************************/
 #include "cbaselog.hpp"
 #include <stdio.h>
 #include <stdarg.h>
 
 CBaseLog::CBaseLog()
 {
+    /*
+        log level string define
+    */
     ppszLevStr[LL_ERR]    = "NVP_ERR";
     ppszLevStr[LL_WARN]   = "NVP_WARN";
     ppszLevStr[LL_NOTICE] = "NVP_NOTICE";
@@ -12,7 +23,17 @@ CBaseLog::CBaseLog()
     ppszLevStr[LL_MAX]    = NULL;
 
 }
-NVP_S32 CBaseLog::formatMsg(NVP_CHAR *pszMsg,NVP_U32 ulMsgLenght,const NVP_CHAR* pszFormat, ...)
+/**************************************************************************
+@brief     : format string
+@function  : format
+@param     :
+	pszMsg         input string buf
+	ulMsgLenght    input string buf length?
+	pszFormat      c style formatting input
+@note      :
+@author    : sicheng.lin
+**************************************************************************/
+NVP_S32 CBaseLog::format(NVP_CHAR *pszMsg,NVP_U32 ulMsgLenght,const NVP_CHAR* pszFormat, ...)
 {	
     NVP_S32 slRet;
 	

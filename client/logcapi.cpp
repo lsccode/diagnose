@@ -1,9 +1,25 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : c stype encap
+
+**************************************************************************/
+
 #include "logcapi.h"
 #include "cdiagnose.hpp"
 
-CDiagnose *pdiagnose = NULL;
-NVP_U8  ucStart = 0;
+CDiagnose *pdiagnose = NULL;    //  log encap
+NVP_U8  ucStart = 0;            //  start flag,this flag must 1,or else no print message
 
+/**************************************************************************
+@brief     : Initialize the log function
+@function  : initLog
+@param     :
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 void initLog()
 {
     if(NULL == pdiagnose)
@@ -12,6 +28,15 @@ void initLog()
     return;
 }
 
+/**************************************************************************
+@brief     : set log terminal
+@function  : setTerminal
+@param     :
+    ulTermType   terminal type
+    szFile       file name
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
     if(NULL == pdiagnose)
@@ -25,6 +50,17 @@ void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
     
     return;
 }
+
+/**************************************************************************
+@brief     : print to concrete terminal
+@function  : logPrint
+@param     :
+    ulogLevel   log level
+    format      c style format
+@note      : 
+@author    :  sicheng.lin
+@example   : ref main.c 
+**************************************************************************/
 
 void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
 {
@@ -41,6 +77,14 @@ void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
     
     return;
 }
+
+/**************************************************************************
+@brief     : stop log
+@function  : closeLog
+@param     :
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 
 void closeLog()
 {

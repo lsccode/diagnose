@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : net log terminal
+
+**************************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,10 +26,6 @@
 
 #include "cnetlog.hpp"
 
-#define SERVER_ADDR "127.0.0.1"
-#define SERVER_PORT (9638)
-#define M_CFG_FILE "/etc/netlog.cfg"
-
 CNetLog::CNetLog()
 {
     m_serverAddr.sin_family = AF_INET;
@@ -37,6 +42,14 @@ CNetLog::~CNetLog()
         ::close(m_fd);
     m_fd = -1;
 }
+
+/**************************************************************************
+@brief     : get log server's ip
+@function  : getCfgIP
+@param     :
+@note      : 
+@author    : sicheng.lin 
+**************************************************************************/
 
 NVP_S32 CNetLog::getCfgIP()
 {
@@ -60,6 +73,14 @@ NVP_S32 CNetLog::getCfgIP()
 
 }
 
+/**************************************************************************
+@brief     : init socket
+@function  : init
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
+
 NVP_S32 CNetLog::init()
 { 
     m_fd = socket (AF_INET,SOCK_DGRAM,0);
@@ -72,6 +93,7 @@ NVP_S32 CNetLog::init()
     
     if(getCfgIP() != NVP_SUCCEED)
     {
+        //  udp socket,if no ip config,then wait user config netlog.cfg, therefore keep socket fd
         fprintf(stderr,"get config ip error!\n");
         return NVP_FAILURE;
     }
@@ -81,6 +103,17 @@ NVP_S32 CNetLog::init()
     
     return NVP_SUCCEED;
 }
+
+/**************************************************************************
+@brief     : log to net udp server
+@function  : log
+@param     :
+	ulogLevel         log leve type,  such as LL_ERR,LL_WARN ...
+	format            c stype format ,like "%s %d"
+    args              c vary type
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
 
 NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {
@@ -114,6 +147,14 @@ NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     return NVP_SUCCEED;
 }
+
+/**************************************************************************
+@brief     : disconncect from server
+@function  : close
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
 
 NVP_S32 CNetLog::close()
 {

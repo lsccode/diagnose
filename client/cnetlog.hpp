@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : net log terminal
+
+**************************************************************************/
+
 #ifndef __NET_LOG_H__
 #define __NET_LOG_H__
 
@@ -5,7 +14,11 @@
 #include <netinet/in.h>
 
 #include "cbaselog.hpp"
+
 #define M_MAX_IP_ADDR_LEN (32) // just ipv4
+#define SERVER_ADDR "127.0.0.1"
+#define SERVER_PORT (9638)
+#define M_CFG_FILE "/etc/netlog.cfg"
 
 class CNetLog:public CBaseLog
 {

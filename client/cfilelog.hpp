@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : file terminal
+
+**************************************************************************/
+
 #ifndef _FILE_LOG_H__
 #define _FILE_LOG_H__
 

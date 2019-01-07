@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : test log function
+
+**************************************************************************/
+
 #include "logcapi.h"
 
 int main(int argc,char *argv[])

@@ -1,5 +1,11 @@
-#include "cfilelog.hpp"
+/**************************************************************************
 
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : file terminal
+
+**************************************************************************/
 #include <string.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -8,6 +14,8 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <errno.h>
+
+#include "cfilelog.hpp"
 
 CFileLog::CFileLog(const NVP_CHAR *szFileName)
 {
@@ -26,6 +34,14 @@ CFileLog::~CFileLog()
     m_filefd = -1;
 }
 
+/**************************************************************************
+@brief     : open file for log
+@function  : openFile
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
+
 NVP_S32 CFileLog::openFile()
 {
     m_filefd = open(m_szFileName,O_WRONLY | O_CREAT | O_APPEND | O_NDELAY,0777);
@@ -39,6 +55,14 @@ NVP_S32 CFileLog::openFile()
     return NVP_SUCCEED;             
 }
 
+/**************************************************************************
+@brief     : init terminal
+@function  : init
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
+
 NVP_S32 CFileLog::init()
 {
     if(openFile() != NVP_SUCCEED)
@@ -48,6 +72,17 @@ NVP_S32 CFileLog::init()
     
     return NVP_SUCCEED;
 }
+
+/**************************************************************************
+@brief     : log to file
+@function  : log
+@param     :
+	ulogLevel         log leve type,  such as LL_ERR,LL_WARN ...
+	format            c stype format ,like "%s %d"
+    args              c vary type
+@note      : 
+@author    :  sicheng.lin 
+**************************************************************************/
 
 NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 {
@@ -78,6 +113,14 @@ NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     return NVP_SUCCEED;
 }
+
+/**************************************************************************
+@brief     : close file
+@function  : close
+@param     :
+@note      : 
+@author    : sicheng.lin??
+**************************************************************************/
 
 NVP_S32 CFileLog::close()
 {

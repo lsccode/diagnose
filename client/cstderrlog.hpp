@@ -1,3 +1,12 @@
+/**************************************************************************
+
+Copyright   : NEXTVPU
+Author      : sicheng.lin
+Date        : 2019-01-07
+Description : standard  error terminal
+
+**************************************************************************/
+
 #ifndef __STDERR_LOG_H__
 #define __STDERR_LOG_H__
 
