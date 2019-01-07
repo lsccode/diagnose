@@ -6,10 +6,10 @@ CPPFLAGS += -I ../include
 ALL := diaglog.out libdiag.a
 all:$(ALL)
 
-diaglog.out:diaglog.o main.o libdiag.a
+diaglog.out:main.o libdiag.a
 	$(CXX) -o $@ $^
 
-libdiag.a:diaglog.o cbaselog.o csyslog.o cnetlog.o cstderrlog.o cfilelog.o cdiagnose.o logcapi.o
+libdiag.a:cbaselog.o csyslog.o cnetlog.o cstderrlog.o cfilelog.o cdiagnose.o logcapi.o
 	ar rf $@ $^
 
 install:
