@@ -23,6 +23,9 @@ void initLog();
 // set terminal 
 void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile);
 
+// set level
+void setLevel(NVP_U32 ulogLevel);
+
 // log print
 void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...);
 

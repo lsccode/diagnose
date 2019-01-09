@@ -139,7 +139,9 @@ NVP_S32 CNetLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     if (slRet > 0 && m_fd > 0)
     {
-        if (sendto(m_fd,szBuf,slRet,0,(struct sockaddr *)&m_serverAddr,m_serverLen) < 0)
+        NVP_S32 slSend = sendto(m_fd,szBuf,slRet,0,(struct sockaddr *)&m_serverAddr,m_serverLen);
+        
+        if (slSend < 0)
         {
             slRet = getCfgIP();
             if (NVP_SUCCESS != slRet )

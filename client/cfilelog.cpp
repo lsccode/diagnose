@@ -108,7 +108,9 @@ NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     
     if (slRet > 0 && m_filefd > 0)
     {
-        if (::write(m_filefd,szBuf,slRet) < 0)
+        NVP_S32 slWrite = ::write(m_filefd,szBuf,slRet);
+        
+        if (slWrite < 0)
         {
             ::close(m_filefd);
             m_filefd = -1;

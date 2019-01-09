@@ -12,7 +12,7 @@ Description : c stype encap
 
 static CDiagnose *s_pdiagnose = NULL;    //  log encap
 static NVP_U8  s_ucStart = 0;            //  start flag,this flag must 1,or else no print message
-
+static NVP_U32 s_ulLevel = 0;
 /**************************************************************************
 @brief     : Initialize the log function
 @function  : initLog
@@ -54,6 +54,21 @@ void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 }
 
 /**************************************************************************
+@brief     : set log level
+@function  : setLevel
+@param     :
+    ulogLevel   log level
+@note      : 
+@author    :   sicheng.lin  
+**************************************************************************/
+
+void setLevel(NVP_U32 ulogLevel)
+{
+    s_ulLevel = ulogLevel;
+    return;
+}
+
+/**************************************************************************
 @brief     : print to concrete terminal
 @function  : logPrint
 @param     :
@@ -69,6 +84,11 @@ void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
     if (NULL == s_pdiagnose || 0 == s_ucStart )
     {
         fprintf(stderr,"call initLog and setTerminal first,please!\n");
+        return;
+    }
+    
+    if (ulogLevel > s_ulLevel)
+    {
         return;
     }
     
