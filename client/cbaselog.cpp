@@ -15,6 +15,7 @@ CBaseLog::CBaseLog()
     /*
         log level string define
     */
+    ppszLevStr[LL_ALERT]  = "NVP_ALERT";
     ppszLevStr[LL_ERR]    = "NVP_ERR";
     ppszLevStr[LL_WARN]   = "NVP_WARN";
     ppszLevStr[LL_NOTICE] = "NVP_NOTICE";

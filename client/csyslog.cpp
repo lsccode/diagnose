@@ -16,6 +16,7 @@ Description : sys log terminal
 
 CSysLog::CSysLog()
 {
+    szLogLevel[LL_ALERT]  = LOG_CRIT;
     szLogLevel[LL_ERR]    = LOG_ERR;
     szLogLevel[LL_WARN]   = LOG_WARNING;
     szLogLevel[LL_NOTICE] = LOG_NOTICE;
@@ -32,7 +33,7 @@ CSysLog::~CSysLog()
 @function  : init
 @param     :
 @note      : 
-@author    : sicheng.lin??
+@author    : sicheng.lin
 **************************************************************************/
 
 NVP_S32 CSysLog:: init()
@@ -40,7 +41,7 @@ NVP_S32 CSysLog:: init()
 
     openlog("User Log", LOG_PID | LOG_NDELAY, LOG_USER);
     
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }
 
 /**************************************************************************
@@ -69,14 +70,16 @@ NVP_S32 CSysLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     slRet += vsnprintf(szBuf + slRet, sizeof(szBuf) - slRet,format,args);
     
     if (slRet > 0)
+    {
         syslog(szLogLevel[ulogLevel],szBuf);
+    }
 	
     return slRet;
 }
 
 /**************************************************************************
 @brief     : close sys log
-@function  : log
+@function  : close
 @param     :
 @note      : 
 @author    :   sicheng.lin  
@@ -85,5 +88,5 @@ NVP_S32 CSysLog::close()
 {   
     closelog();
     
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }

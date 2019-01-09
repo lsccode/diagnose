@@ -23,14 +23,18 @@ CFileLog::CFileLog(const NVP_CHAR *szFileName)
     memset(m_szFileName,0,sizeof(m_szFileName));
     
     if (szFileName)
+    {
         strncpy(m_szFileName,szFileName,sizeof(m_szFileName) - 1);
+    }      
 }
 
 CFileLog::~CFileLog()
 {
     if (m_filefd > 0)
+    {
         ::close(m_filefd);
-    
+    }
+       
     m_filefd = -1;
 }
 
@@ -39,7 +43,7 @@ CFileLog::~CFileLog()
 @function  : openFile
 @param     :
 @note      : 
-@author    : sicheng.lin??
+@author    : sicheng.lin
 **************************************************************************/
 
 NVP_S32 CFileLog::openFile()
@@ -52,7 +56,7 @@ NVP_S32 CFileLog::openFile()
         return NVP_FAILURE;
     }
            
-    return NVP_SUCCEED;             
+    return NVP_SUCCESS;             
 }
 
 /**************************************************************************
@@ -60,17 +64,21 @@ NVP_S32 CFileLog::openFile()
 @function  : init
 @param     :
 @note      : 
-@author    : sicheng.lin??
+@author    : sicheng.lin
 **************************************************************************/
 
 NVP_S32 CFileLog::init()
 {
-    if (openFile() != NVP_SUCCEED)
+    NVP_S32 slRet = NVP_SUCCESS;
+    
+    slRet = openFile();
+    
+    if (slRet != NVP_SUCCESS)
     {
         return NVP_FAILURE;
     }
     
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }
 
 /**************************************************************************
@@ -111,7 +119,7 @@ NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
         }
     }
     
-    return NVP_SUCCEED;
+    return slRet;
 }
 
 /**************************************************************************
@@ -119,15 +127,17 @@ NVP_S32 CFileLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
 @function  : close
 @param     :
 @note      : 
-@author    : sicheng.lin??
+@author    : sicheng.lin
 **************************************************************************/
 
 NVP_S32 CFileLog::close()
 {
     if (m_filefd > 0)
+    {
         ::close(m_filefd);
+    }
     
     m_filefd = -1;
     
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }

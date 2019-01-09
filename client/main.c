@@ -11,35 +11,39 @@ Description : test log function
 
 int main(int argc,char *argv[])
 {
-    int i = 0;
     initLog();
-    setTerminal(M_TERM_STD,NULL);    
-    NVPLOG(LL_ERR,"this is just test\n");    
-    NVPLOG(LL_WARN,"this is just test %d\n",i);  
-    NVPLOG(LL_NOTICE,"this is just test %d,%s\n",++i, "OK","NOTICE");   
-    NVPLOG(LL_INFO,"this is just test %d,%s,%s\n",++i, "OK", "INFO");    
-    NVPLOG(LL_DEBUG,"this is just test %d,%s,%s\n",++i, "OK","DEBUG"); 
+    setTerminal(M_TERM_STD,NULL);
+    
+    NLALERT("log level %s (%d)\n","alert",LL_ALERT);
+    NLERROR("log level %s (%d)\n","error",LL_ERR);    
+    NLWARN("log level %s (%d)\n","warn",LL_WARN);  
+    NLNOTICE("log level %s (%d)\n","notice",LL_NOTICE);   
+    NLINFO("log level %s (%d)\n","info",LL_INFO);    
+    NLDEBUG("log level %s (%d)\n","debug",LL_DEBUG);     
     
     setTerminal(M_TERM_SYS,NULL);    
-    NVPLOG(LL_ERR,"this is just test\n");    
-    NVPLOG(LL_WARN,"this is just test %d\n",i);  
-    NVPLOG(LL_NOTICE,"this is just test %d,%s\n",++i, "OK","NOTICE");   
-    NVPLOG(LL_INFO,"this is just test %d,%s,%s\n",++i, "OK", "INFO");    
-    NVPLOG(LL_DEBUG,"this is just test %d,%s,%s\n",++i, "OK","DEBUG");
+    NLALERT("log level %s (%d)\n","alert",LL_ALERT);
+    NLERROR("log level %s (%d)\n","error",LL_ERR);    
+    NLWARN("log level %s (%d)\n","warn",LL_WARN);  
+    NLNOTICE("log level %s (%d)\n","notice",LL_NOTICE);   
+    NLINFO("log level %s (%d)\n","info",LL_INFO);    
+    NLDEBUG("log level %s (%d)\n","debug",LL_DEBUG);
     
     setTerminal(M_TERM_FILE,"debug.log");    
-    NVPLOG(LL_ERR,"this is just test\n");    
-    NVPLOG(LL_WARN,"this is just test %d\n",i);  
-    NVPLOG(LL_NOTICE,"this is just test %d,%s\n",++i, "OK","NOTICE");   
-    NVPLOG(LL_INFO,"this is just test %d,%s,%s\n",++i, "OK", "INFO");    
-    NVPLOG(LL_DEBUG,"this is just test %d,%s,%s\n",++i, "OK","DEBUG");
+    NLALERT("log level %s (%d)\n","alert",LL_ALERT);
+    NLERROR("log level %s (%d)\n","error",LL_ERR);    
+    NLWARN("log level %s (%d)\n","warn",LL_WARN);  
+    NLNOTICE("log level %s (%d)\n","notice",LL_NOTICE);   
+    NLINFO("log level %s (%d)\n","info",LL_INFO);    
+    NLDEBUG("log level %s (%d)\n","debug",LL_DEBUG);
     
     setTerminal(M_TERM_NET,NULL);    
-    NVPLOG(LL_ERR,"this is just test\n");    
-    NVPLOG(LL_WARN,"this is just test %d\n",i);  
-    NVPLOG(LL_NOTICE,"this is just test %d,%s\n",++i, "OK","NOTICE");   
-    NVPLOG(LL_INFO,"this is just test %d,%s,%s\n",++i, "OK", "INFO");    
-    NVPLOG(LL_DEBUG,"this is just test %d,%s,%s\n",++i, "OK","DEBUG");
+    NLALERT("log level %s (%d)\n","alert",LL_ALERT);
+    NLERROR("log level %s (%d)\n","error",LL_ERR);    
+    NLWARN("log level %s (%d)\n","warn",LL_WARN);  
+    NLNOTICE("log level %s (%d)\n","notice",LL_NOTICE);   
+    NLINFO("log level %s (%d)\n","info",LL_INFO);    
+    NLDEBUG("log level %s (%d)\n","debug",LL_DEBUG);
     
     return 0;
 }

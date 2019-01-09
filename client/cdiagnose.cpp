@@ -30,7 +30,9 @@ CDiagnose::CDiagnose()
 CDiagnose* CDiagnose::getInstance(NVP_VOID)
 {
     if (NULL == pcSelf)
+    {
         pcSelf = new CDiagnose();
+    }
     
     return pcSelf;
 }
@@ -47,7 +49,7 @@ CDiagnose* CDiagnose::getInstance(NVP_VOID)
 **************************************************************************/
 NVP_S32 CDiagnose::setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
-    NVP_S32 slRet = NVP_SUCCEED;
+    NVP_S32 slRet = NVP_SUCCESS;
     
     if (NULL != this->pcBaseLog)
         delete this->pcBaseLog;

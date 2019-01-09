@@ -10,8 +10,8 @@ Description : c stype encap
 #include "logcapi.h"
 #include "cdiagnose.hpp"
 
-CDiagnose *pdiagnose = NULL;    //  log encap
-NVP_U8  ucStart = 0;            //  start flag,this flag must 1,or else no print message
+static CDiagnose *s_pdiagnose = NULL;    //  log encap
+static NVP_U8  s_ucStart = 0;            //  start flag,this flag must 1,or else no print message
 
 /**************************************************************************
 @brief     : Initialize the log function
@@ -22,8 +22,10 @@ NVP_U8  ucStart = 0;            //  start flag,this flag must 1,or else no print
 **************************************************************************/
 void initLog()
 {
-    if (NULL == pdiagnose)
-        pdiagnose = CDiagnose::getInstance();
+    if (NULL == s_pdiagnose)
+    {
+        s_pdiagnose = CDiagnose::getInstance();
+    }
     
     return;
 }
@@ -39,14 +41,14 @@ void initLog()
 **************************************************************************/
 void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 {
-    if (NULL == pdiagnose)
+    if (NULL == s_pdiagnose)
     {
         fprintf(stderr,"call initLog first,please!\n");
         return;
     }
  
-    pdiagnose->setTerminal(ulTermType,szFile);
-    ucStart = 1;
+    s_pdiagnose->setTerminal(ulTermType,szFile);
+    s_ucStart = 1;
     
     return;
 }
@@ -64,7 +66,7 @@ void setTerminal(NVP_U32 ulTermType,const NVP_CHAR *szFile)
 
 void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
 {
-    if (NULL == pdiagnose || 0 == ucStart )
+    if (NULL == s_pdiagnose || 0 == s_ucStart )
     {
         fprintf(stderr,"call initLog and setTerminal first,please!\n");
         return;
@@ -72,7 +74,7 @@ void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
     
     va_list args;
     va_start(args, format);
-    pdiagnose->log(ulogLevel,format,args);
+    s_pdiagnose->log(ulogLevel,format,args);
     va_end(args);
     
     return;
@@ -88,5 +90,5 @@ void logPrint(NVP_U32 ulogLevel,const NVP_CHAR *format, ...)
 
 void closeLog()
 {
-    ucStart = 0;
+    s_ucStart = 0;
 }

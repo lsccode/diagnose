@@ -35,6 +35,13 @@ do{ \
     logPrint(loglevel,"/%s/%s/%d -- "format, __FILE__,__func__,__LINE__, ##__VA_ARGS__); \
 } while (0)
 
+//  NL means NVPLOG
+#define NLALERT(format,...) NVPLOG(LL_ALERT,format, ##__VA_ARGS__)
+#define NLERROR(format,...) NVPLOG(LL_ERR,format, ##__VA_ARGS__)
+#define NLWARN(format,...) NVPLOG(LL_WARN,format, ##__VA_ARGS__)
+#define NLNOTICE(format,...) NVPLOG(LL_NOTICE,format, ##__VA_ARGS__)
+#define NLINFO(format,...) NVPLOG(LL_INFO,format, ##__VA_ARGS__)
+#define NLDEBUG(format,...) NVPLOG(LL_DEBUG,format, ##__VA_ARGS__)
 
 #ifdef __cplusplus 
 } 

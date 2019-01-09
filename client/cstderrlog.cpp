@@ -24,7 +24,7 @@ CStdErrLog::~CStdErrLog()
 
 NVP_S32 CStdErrLog::init()
 {
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }
 
 /**************************************************************************
@@ -54,10 +54,10 @@ NVP_S32 CStdErrLog::log(NVP_U32 ulogLevel,const NVP_CHAR *format, va_list args)
     if (slRet > 0)
         fprintf(stderr,szBuf);
     
-    return NVP_SUCCEED;
+    return slRet;
 }
 
 NVP_S32 CStdErrLog::close()
 {
-    return NVP_SUCCEED;
+    return NVP_SUCCESS;
 }
